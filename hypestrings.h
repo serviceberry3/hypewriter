@@ -9,7 +9,7 @@
 #define HYPESTRINGS_H_
 
 
-const char welcome[] = "Hello, world!";
+const char welcome[] = "Welcome to the HypeWriter!!";
 const char cright[] = "2020 Noah Weiner";
 
 
