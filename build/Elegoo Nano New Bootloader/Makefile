@@ -10,8 +10,8 @@ mymkdir = mkdir -p $1
 endif
 
 PROJECT_OBJS = \
-	project/NanoLCD.cpp.o \
-	project/welcome.cpp.o \
+	project/src/NanoLCD.cpp.o \
+	project/src/welcome.cpp.o \
 
 PLATFORM_CORE_OBJS = \
 	core/wiring_analog.c.o \
@@ -43,7 +43,13 @@ PLATFORM_CORE_OBJS = \
 PLATFORM_VARIANT_OBJS = \
 
 LIBRARIES_OBJS = \
+	libraries/SD/1.2.4/src/File.cpp.o \
+	libraries/SD/1.2.4/src/SD.cpp.o \
+	libraries/SD/1.2.4/src/utility/SdFile.cpp.o \
+	libraries/SD/1.2.4/src/utility/SdVolume.cpp.o \
+	libraries/SD/1.2.4/src/utility/Sd2Card.cpp.o \
 	libraries/LiquidCrystal/1.0.7/src/LiquidCrystal.cpp.o \
+	libraries/SPI/src/SPI.cpp.o \
 
 TARGETS = \
 	NanoLCD.hex \
@@ -65,26 +71,26 @@ clean:
 size:
 	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-size" -A "./NanoLCD.elf"
 
-project/NanoLCD.cpp.o: ../../NanoLCD.cpp project/NanoLCD.cpp.d
+project/src/NanoLCD.cpp.o: ../../src/NanoLCD.cpp project/src/NanoLCD.cpp.d
 	@$(call mymkdir,$(dir $@))
-	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" "$<" -o "$@"
+	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/SD/1.2.4/src" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/libraries/SPI/src" "$<" -o "$@"
 
-project/NanoLCD.cpp.d: ;
+project/src/NanoLCD.cpp.d: ;
 
--include project/NanoLCD.cpp.d 
+-include project/src/NanoLCD.cpp.d 
 
-project/welcome.cpp.o: ../../welcome.cpp project/welcome.cpp.d
+project/src/welcome.cpp.o: ../../src/welcome.cpp project/src/welcome.cpp.d
 	@$(call mymkdir,$(dir $@))
-	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" "$<" -o "$@"
+	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/SD/1.2.4/src" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/libraries/SPI/src" "$<" -o "$@"
 
-project/welcome.cpp.d: ;
+project/src/welcome.cpp.d: ;
 
--include project/welcome.cpp.d 
+-include project/src/welcome.cpp.d 
 
 
 core/wiring_analog.c.o: /home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/wiring_analog.c core/wiring_analog.c.d
 	@$(call mymkdir,$(dir $@))
-	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc" -c -g -Os -w -std=gnu11 -ffunction-sections -fdata-sections -MMD -flto -fno-fat-lto-objects -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" "$<" -o "$@"
+	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc" -c -g -Os -w -std=gnu11 -ffunction-sections -fdata-sections -MMD -flto -fno-fat-lto-objects -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/SD/1.2.4/src" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/libraries/SPI/src" "$<" -o "$@"
 	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 	
 core/wiring_analog.c.d: ;
@@ -93,7 +99,7 @@ core/wiring_analog.c.d: ;
 
 core/HardwareSerial0.cpp.o: /home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/HardwareSerial0.cpp core/HardwareSerial0.cpp.d
 	@$(call mymkdir,$(dir $@))
-	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" "$<" -o "$@"
+	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/SD/1.2.4/src" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/libraries/SPI/src" "$<" -o "$@"
 	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 
 core/HardwareSerial0.cpp.d: ;
@@ -102,7 +108,7 @@ core/HardwareSerial0.cpp.d: ;
 
 core/CDC.cpp.o: /home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/CDC.cpp core/CDC.cpp.d
 	@$(call mymkdir,$(dir $@))
-	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" "$<" -o "$@"
+	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/SD/1.2.4/src" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/libraries/SPI/src" "$<" -o "$@"
 	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 
 core/CDC.cpp.d: ;
@@ -111,7 +117,7 @@ core/CDC.cpp.d: ;
 
 core/HardwareSerial2.cpp.o: /home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/HardwareSerial2.cpp core/HardwareSerial2.cpp.d
 	@$(call mymkdir,$(dir $@))
-	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" "$<" -o "$@"
+	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/SD/1.2.4/src" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/libraries/SPI/src" "$<" -o "$@"
 	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 
 core/HardwareSerial2.cpp.d: ;
@@ -120,7 +126,7 @@ core/HardwareSerial2.cpp.d: ;
 
 core/WMath.cpp.o: /home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/WMath.cpp core/WMath.cpp.d
 	@$(call mymkdir,$(dir $@))
-	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" "$<" -o "$@"
+	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/SD/1.2.4/src" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/libraries/SPI/src" "$<" -o "$@"
 	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 
 core/WMath.cpp.d: ;
@@ -129,12 +135,12 @@ core/WMath.cpp.d: ;
 
 core/wiring_pulse.S.o: /home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/wiring_pulse.S
 	@$(call mymkdir,$(dir $@))
-	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc" -c -g -x assembler-with-cpp -flto -MMD -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" "$<" -o "$@"
+	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc" -c -g -x assembler-with-cpp -flto -MMD -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/SD/1.2.4/src" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/libraries/SPI/src" "$<" -o "$@"
 	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 
 core/PluggableUSB.cpp.o: /home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/PluggableUSB.cpp core/PluggableUSB.cpp.d
 	@$(call mymkdir,$(dir $@))
-	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" "$<" -o "$@"
+	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/SD/1.2.4/src" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/libraries/SPI/src" "$<" -o "$@"
 	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 
 core/PluggableUSB.cpp.d: ;
@@ -143,7 +149,7 @@ core/PluggableUSB.cpp.d: ;
 
 core/abi.cpp.o: /home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/abi.cpp core/abi.cpp.d
 	@$(call mymkdir,$(dir $@))
-	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" "$<" -o "$@"
+	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/SD/1.2.4/src" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/libraries/SPI/src" "$<" -o "$@"
 	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 
 core/abi.cpp.d: ;
@@ -152,7 +158,7 @@ core/abi.cpp.d: ;
 
 core/HardwareSerial1.cpp.o: /home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/HardwareSerial1.cpp core/HardwareSerial1.cpp.d
 	@$(call mymkdir,$(dir $@))
-	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" "$<" -o "$@"
+	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/SD/1.2.4/src" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/libraries/SPI/src" "$<" -o "$@"
 	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 
 core/HardwareSerial1.cpp.d: ;
@@ -161,7 +167,7 @@ core/HardwareSerial1.cpp.d: ;
 
 core/wiring_pulse.c.o: /home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/wiring_pulse.c core/wiring_pulse.c.d
 	@$(call mymkdir,$(dir $@))
-	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc" -c -g -Os -w -std=gnu11 -ffunction-sections -fdata-sections -MMD -flto -fno-fat-lto-objects -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" "$<" -o "$@"
+	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc" -c -g -Os -w -std=gnu11 -ffunction-sections -fdata-sections -MMD -flto -fno-fat-lto-objects -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/SD/1.2.4/src" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/libraries/SPI/src" "$<" -o "$@"
 	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 	
 core/wiring_pulse.c.d: ;
@@ -170,7 +176,7 @@ core/wiring_pulse.c.d: ;
 
 core/Print.cpp.o: /home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/Print.cpp core/Print.cpp.d
 	@$(call mymkdir,$(dir $@))
-	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" "$<" -o "$@"
+	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/SD/1.2.4/src" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/libraries/SPI/src" "$<" -o "$@"
 	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 
 core/Print.cpp.d: ;
@@ -179,7 +185,7 @@ core/Print.cpp.d: ;
 
 core/WInterrupts.c.o: /home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/WInterrupts.c core/WInterrupts.c.d
 	@$(call mymkdir,$(dir $@))
-	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc" -c -g -Os -w -std=gnu11 -ffunction-sections -fdata-sections -MMD -flto -fno-fat-lto-objects -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" "$<" -o "$@"
+	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc" -c -g -Os -w -std=gnu11 -ffunction-sections -fdata-sections -MMD -flto -fno-fat-lto-objects -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/SD/1.2.4/src" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/libraries/SPI/src" "$<" -o "$@"
 	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 	
 core/WInterrupts.c.d: ;
@@ -188,7 +194,7 @@ core/WInterrupts.c.d: ;
 
 core/HardwareSerial3.cpp.o: /home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/HardwareSerial3.cpp core/HardwareSerial3.cpp.d
 	@$(call mymkdir,$(dir $@))
-	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" "$<" -o "$@"
+	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/SD/1.2.4/src" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/libraries/SPI/src" "$<" -o "$@"
 	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 
 core/HardwareSerial3.cpp.d: ;
@@ -197,7 +203,7 @@ core/HardwareSerial3.cpp.d: ;
 
 core/Tone.cpp.o: /home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/Tone.cpp core/Tone.cpp.d
 	@$(call mymkdir,$(dir $@))
-	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" "$<" -o "$@"
+	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/SD/1.2.4/src" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/libraries/SPI/src" "$<" -o "$@"
 	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 
 core/Tone.cpp.d: ;
@@ -206,7 +212,7 @@ core/Tone.cpp.d: ;
 
 core/wiring_digital.c.o: /home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/wiring_digital.c core/wiring_digital.c.d
 	@$(call mymkdir,$(dir $@))
-	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc" -c -g -Os -w -std=gnu11 -ffunction-sections -fdata-sections -MMD -flto -fno-fat-lto-objects -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" "$<" -o "$@"
+	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc" -c -g -Os -w -std=gnu11 -ffunction-sections -fdata-sections -MMD -flto -fno-fat-lto-objects -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/SD/1.2.4/src" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/libraries/SPI/src" "$<" -o "$@"
 	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 	
 core/wiring_digital.c.d: ;
@@ -215,7 +221,7 @@ core/wiring_digital.c.d: ;
 
 core/IPAddress.cpp.o: /home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/IPAddress.cpp core/IPAddress.cpp.d
 	@$(call mymkdir,$(dir $@))
-	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" "$<" -o "$@"
+	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/SD/1.2.4/src" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/libraries/SPI/src" "$<" -o "$@"
 	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 
 core/IPAddress.cpp.d: ;
@@ -224,7 +230,7 @@ core/IPAddress.cpp.d: ;
 
 core/wiring.c.o: /home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/wiring.c core/wiring.c.d
 	@$(call mymkdir,$(dir $@))
-	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc" -c -g -Os -w -std=gnu11 -ffunction-sections -fdata-sections -MMD -flto -fno-fat-lto-objects -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" "$<" -o "$@"
+	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc" -c -g -Os -w -std=gnu11 -ffunction-sections -fdata-sections -MMD -flto -fno-fat-lto-objects -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/SD/1.2.4/src" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/libraries/SPI/src" "$<" -o "$@"
 	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 	
 core/wiring.c.d: ;
@@ -233,7 +239,7 @@ core/wiring.c.d: ;
 
 core/Stream.cpp.o: /home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/Stream.cpp core/Stream.cpp.d
 	@$(call mymkdir,$(dir $@))
-	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" "$<" -o "$@"
+	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/SD/1.2.4/src" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/libraries/SPI/src" "$<" -o "$@"
 	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 
 core/Stream.cpp.d: ;
@@ -242,7 +248,7 @@ core/Stream.cpp.d: ;
 
 core/WString.cpp.o: /home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/WString.cpp core/WString.cpp.d
 	@$(call mymkdir,$(dir $@))
-	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" "$<" -o "$@"
+	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/SD/1.2.4/src" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/libraries/SPI/src" "$<" -o "$@"
 	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 
 core/WString.cpp.d: ;
@@ -251,7 +257,7 @@ core/WString.cpp.d: ;
 
 core/USBCore.cpp.o: /home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/USBCore.cpp core/USBCore.cpp.d
 	@$(call mymkdir,$(dir $@))
-	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" "$<" -o "$@"
+	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/SD/1.2.4/src" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/libraries/SPI/src" "$<" -o "$@"
 	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 
 core/USBCore.cpp.d: ;
@@ -260,7 +266,7 @@ core/USBCore.cpp.d: ;
 
 core/HardwareSerial.cpp.o: /home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/HardwareSerial.cpp core/HardwareSerial.cpp.d
 	@$(call mymkdir,$(dir $@))
-	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" "$<" -o "$@"
+	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/SD/1.2.4/src" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/libraries/SPI/src" "$<" -o "$@"
 	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 
 core/HardwareSerial.cpp.d: ;
@@ -269,7 +275,7 @@ core/HardwareSerial.cpp.d: ;
 
 core/new.cpp.o: /home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/new.cpp core/new.cpp.d
 	@$(call mymkdir,$(dir $@))
-	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" "$<" -o "$@"
+	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/SD/1.2.4/src" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/libraries/SPI/src" "$<" -o "$@"
 	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 
 core/new.cpp.d: ;
@@ -278,7 +284,7 @@ core/new.cpp.d: ;
 
 core/main.cpp.o: /home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/main.cpp core/main.cpp.d
 	@$(call mymkdir,$(dir $@))
-	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" "$<" -o "$@"
+	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/SD/1.2.4/src" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/libraries/SPI/src" "$<" -o "$@"
 	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 
 core/main.cpp.d: ;
@@ -287,7 +293,7 @@ core/main.cpp.d: ;
 
 core/wiring_shift.c.o: /home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/wiring_shift.c core/wiring_shift.c.d
 	@$(call mymkdir,$(dir $@))
-	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc" -c -g -Os -w -std=gnu11 -ffunction-sections -fdata-sections -MMD -flto -fno-fat-lto-objects -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" "$<" -o "$@"
+	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc" -c -g -Os -w -std=gnu11 -ffunction-sections -fdata-sections -MMD -flto -fno-fat-lto-objects -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/SD/1.2.4/src" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/libraries/SPI/src" "$<" -o "$@"
 	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 	
 core/wiring_shift.c.d: ;
@@ -296,7 +302,7 @@ core/wiring_shift.c.d: ;
 
 core/hooks.c.o: /home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/hooks.c core/hooks.c.d
 	@$(call mymkdir,$(dir $@))
-	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc" -c -g -Os -w -std=gnu11 -ffunction-sections -fdata-sections -MMD -flto -fno-fat-lto-objects -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" "$<" -o "$@"
+	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc" -c -g -Os -w -std=gnu11 -ffunction-sections -fdata-sections -MMD -flto -fno-fat-lto-objects -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/SD/1.2.4/src" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/libraries/SPI/src" "$<" -o "$@"
 	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-gcc-ar" rcs  "./core.a" "$@"
 	
 core/hooks.c.d: ;
@@ -305,11 +311,59 @@ core/hooks.c.d: ;
 
 
 
+libraries/SD/1.2.4/src/File.cpp.o: /home/nodog/.arduinocdt/libraries/SD/1.2.4/src/File.cpp libraries/SD/1.2.4/src/File.cpp.d
+	@$(call mymkdir,$(dir $@))
+	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/SD/1.2.4/src" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/libraries/SPI/src" "$<" -o "$@"
+
+libraries/SD/1.2.4/src/File.cpp.d: ;
+
+-include libraries/SD/1.2.4/src/File.cpp.d
+
+libraries/SD/1.2.4/src/SD.cpp.o: /home/nodog/.arduinocdt/libraries/SD/1.2.4/src/SD.cpp libraries/SD/1.2.4/src/SD.cpp.d
+	@$(call mymkdir,$(dir $@))
+	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/SD/1.2.4/src" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/libraries/SPI/src" "$<" -o "$@"
+
+libraries/SD/1.2.4/src/SD.cpp.d: ;
+
+-include libraries/SD/1.2.4/src/SD.cpp.d
+
+libraries/SD/1.2.4/src/utility/SdFile.cpp.o: /home/nodog/.arduinocdt/libraries/SD/1.2.4/src/utility/SdFile.cpp libraries/SD/1.2.4/src/utility/SdFile.cpp.d
+	@$(call mymkdir,$(dir $@))
+	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/SD/1.2.4/src" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/libraries/SPI/src" "$<" -o "$@"
+
+libraries/SD/1.2.4/src/utility/SdFile.cpp.d: ;
+
+-include libraries/SD/1.2.4/src/utility/SdFile.cpp.d
+
+libraries/SD/1.2.4/src/utility/SdVolume.cpp.o: /home/nodog/.arduinocdt/libraries/SD/1.2.4/src/utility/SdVolume.cpp libraries/SD/1.2.4/src/utility/SdVolume.cpp.d
+	@$(call mymkdir,$(dir $@))
+	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/SD/1.2.4/src" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/libraries/SPI/src" "$<" -o "$@"
+
+libraries/SD/1.2.4/src/utility/SdVolume.cpp.d: ;
+
+-include libraries/SD/1.2.4/src/utility/SdVolume.cpp.d
+
+libraries/SD/1.2.4/src/utility/Sd2Card.cpp.o: /home/nodog/.arduinocdt/libraries/SD/1.2.4/src/utility/Sd2Card.cpp libraries/SD/1.2.4/src/utility/Sd2Card.cpp.d
+	@$(call mymkdir,$(dir $@))
+	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/SD/1.2.4/src" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/libraries/SPI/src" "$<" -o "$@"
+
+libraries/SD/1.2.4/src/utility/Sd2Card.cpp.d: ;
+
+-include libraries/SD/1.2.4/src/utility/Sd2Card.cpp.d
+
 libraries/LiquidCrystal/1.0.7/src/LiquidCrystal.cpp.o: /home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src/LiquidCrystal.cpp libraries/LiquidCrystal/1.0.7/src/LiquidCrystal.cpp.d
 	@$(call mymkdir,$(dir $@))
-	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" "$<" -o "$@"
+	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/SD/1.2.4/src" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/libraries/SPI/src" "$<" -o "$@"
 
 libraries/LiquidCrystal/1.0.7/src/LiquidCrystal.cpp.d: ;
 
 -include libraries/LiquidCrystal/1.0.7/src/LiquidCrystal.cpp.d
+
+libraries/SPI/src/SPI.cpp.o: /home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/libraries/SPI/src/SPI.cpp libraries/SPI/src/SPI.cpp.d
+	@$(call mymkdir,$(dir $@))
+	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/SD/1.2.4/src" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/libraries/SPI/src" "$<" -o "$@"
+
+libraries/SPI/src/SPI.cpp.d: ;
+
+-include libraries/SPI/src/SPI.cpp.d
 

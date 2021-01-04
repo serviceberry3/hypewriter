@@ -5,7 +5,7 @@
  *      Author: nodog
  */
 
-#include "welcome.h"
+#include "../include/welcome.h"
 
 int welcome_user(LiquidCrystal lcd) {
 	while (true) {

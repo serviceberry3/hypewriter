@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <avr/io.h>
-#include "hypeglyphs.h"
-#include "state_mach.h"
-#include "welcome.h"
+#include "../include/hypeglyphs.h"
+#include "../include/state_mach.h"
+#include "../include/welcome.h"
+#include <SPI.h>
+#include <SD.h>
 
 // initialize the library with the numbers of the interface pins
 const int rs = 2, en = 3, d4 = 4, d5 = 5, d6 = 6, d7 = 7;
@@ -15,6 +17,8 @@ state curr_state = INIT;
 //user requests
 int req;
 
+File myFile;
+
 
 
 int main (void) {
@@ -24,6 +28,40 @@ int main (void) {
 
 
 	Serial.begin(9600);
+
+	//make sure SD module initializes successfully, otherwise print error and hang
+	if (!SD.begin(10)) {
+		Serial.println("initialization failed!");
+		while (1);
+	}
+
+	//open a test file for writing. note that only one file can be open at a time, so have to close this one before opening another.
+	myFile = SD.open("test.txt", FILE_WRITE);
+
+
+	//if the file opened okay, write to it:
+	if (myFile) {
+		Serial.print("Writing to test.txt...");
+		myFile.println("This is a test file :)");
+		myFile.println("testing 1, 2, 3.");
+
+
+		for (int i = 0; i < 20; i++) {
+			myFile.println(i);
+		}
+
+
+		//close the test file:
+		myFile.close();
+		Serial.println("done.");
+	}
+
+
+	else {
+		// if the file didn't open, print an error:
+		Serial.println("error opening test.txt");
+	}
+
 
 	lcd.createChar(0, cr_glyph);
 
