@@ -1,2 +1,2 @@
-.sc7107655908291342561.o: \
- /home/nodog/eclipse-workspace/NanoLCD/.sc7107655908291342561.cpp
+.sc15912412392129920371.o: \
+ /home/nodog/eclipse-workspace/NanoLCD/src/.sc15912412392129920371.cpp

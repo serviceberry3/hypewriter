@@ -6,6 +6,9 @@
  */
 
 #include "../include/welcome.h"
+#include "../include/state_mach.h"
+
+extern volatile state curr_state;
 
 int welcome_user(LiquidCrystal lcd) {
 	while (true) {
@@ -17,7 +20,11 @@ int welcome_user(LiquidCrystal lcd) {
 		lcd.write(byte(0));
 		lcd.print(cright);
 
+		if (curr_state == TYPING)
+			return 0;
 		delay(3600);
+		if (curr_state == TYPING)
+			return 0;
 
 
 		//check if scrolling is necessary
@@ -25,10 +32,18 @@ int welcome_user(LiquidCrystal lcd) {
 			for (int i = 0; i < (int)strlen(welcome) - 16; i++) {
 				//Serial.println("Scrolling");
 				lcd.scrollDisplayLeft();
+				if (curr_state == TYPING)
+					return 0;
 				delay(600);
+				if (curr_state == TYPING)
+					return 0;
 			}
 		}
+		if (curr_state == TYPING)
+			return 0;
 		delay(400);
+		if (curr_state == TYPING)
+			return 0;
 	}
 
 	return 0;

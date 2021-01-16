@@ -1,5 +1,6 @@
-project/src/NanoLCD.cpp.o: ../../src/NanoLCD.cpp \
- ../../src/../include/hypeglyphs.h ../../src/../include/arduino.h \
+libraries/DigitalIO/1.0.0/src/SoftI2cMaster.cpp.o: \
+ /home/nodog/.arduinocdt/libraries/DigitalIO/1.0.0/src/SoftI2cMaster.cpp \
+ /home/nodog/.arduinocdt/libraries/DigitalIO/1.0.0/src/SoftI2cMaster.h \
  /home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/Arduino.h \
  /home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/binary.h \
  /home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/WCharacter.h \
@@ -12,17 +13,7 @@ project/src/NanoLCD.cpp.o: ../../src/NanoLCD.cpp \
  /home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/Arduino.h \
  /home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs/pins_arduino.h \
  /home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs/../standard/pins_arduino.h \
- ../../src/../include/state_mach.h ../../src/../include/welcome.h \
- ../../src/../include/lcd.h \
- /home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src/LiquidCrystal.h \
- /home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino/Print.h \
- ../../src/../include/hypestrings.h \
- /home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/libraries/SPI/src/SPI.h \
- /home/nodog/.arduinocdt/libraries/SD/1.2.4/src/SD.h \
- /home/nodog/.arduinocdt/libraries/SD/1.2.4/src/utility/SdFat.h \
- /home/nodog/.arduinocdt/libraries/SD/1.2.4/src/utility/Sd2Card.h \
- /home/nodog/.arduinocdt/libraries/SD/1.2.4/src/utility/Sd2PinMap.h \
- /home/nodog/.arduinocdt/libraries/SD/1.2.4/src/utility/SdInfo.h \
- /home/nodog/.arduinocdt/libraries/SD/1.2.4/src/utility/FatStructs.h \
- /home/nodog/.arduinocdt/libraries/SD/1.2.4/src/utility/SdFatUtil.h \
- ../../src/../include/console.h
+ /home/nodog/.arduinocdt/libraries/DigitalIO/1.0.0/src/DigitalPin.h \
+ /home/nodog/.arduinocdt/libraries/DigitalIO/1.0.0/src/boards/GpioPinMap.h \
+ /home/nodog/.arduinocdt/libraries/DigitalIO/1.0.0/src/boards/UnoGpioPinMap.h \
+ /home/nodog/.arduinocdt/libraries/DigitalIO/1.0.0/src/I2cConstants.h

@@ -1,2 +1,2 @@
 eclipse.preferences.version=1
-libraries=["SD","LiquidCrystal",{"package"\:"arduino","platform"\:"avr","library"\:"SPI"}]
+libraries=["SD","DigitalIO",{"package"\:"arduino","platform"\:"avr","library"\:"Wire"},"LiquidCrystal",{"package"\:"arduino","platform"\:"avr","library"\:"SPI"}]

@@ -10,7 +10,8 @@
 
 
 enum state{
-	INIT
+	INIT,
+	TYPING
 };
 
 
