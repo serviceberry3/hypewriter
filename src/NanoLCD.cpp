@@ -50,7 +50,7 @@ int main (void) {
 
 /*
 	while(1) {
-		//Serial.println(analogRead(b1));
+		Serial.println(analogRead(b1));
 		//Serial.println(digitalRead(buttonPin));
 	}*/
 

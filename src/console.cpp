@@ -12,18 +12,38 @@
 int pins[3] = {0, 1, 2};
 int analog_data[3] = {0, 0, 0};
 
+//buffer to hold chars being typed on bottom line
+char bottom_line[16] = {};
+
+//keep track of how many chars have been typed on bottom line
+int bottom_line_ctr = 0;
+
+
+//TODO: make lcd a global
+
 void open_console(LiquidCrystal lcd) {
 	start_key_processor(lcd);
+}
+
+void next_line(LiquidCrystal lcd) {
+	lcd.clear();
+	lcd.blink();
+	lcd.print(bottom_line);
+	lcd.setCursor(0, 1);
 }
 
 
 void start_key_processor(LiquidCrystal lcd) {
 	lcd.clear();
 	lcd.setCursor(0, 1);
+	lcd.blink();
 
 	//start in "up" state
 	int state = 0;
 	char currently_being_pressed = '\0';
+
+	//keypress confirmer for A0 pin
+	int locker0 = 0;
 
 	while (1) {
 		//get data from all analog pins
@@ -51,13 +71,35 @@ void start_key_processor(LiquidCrystal lcd) {
 			case 1:
 				//if we notice the key is now being released
 				if (!key_to_print) {
-					state = 0;
+					//wait for at least 50 confirming 0 readings before printing the letter
+					locker0++;
 
-					//print out the key that was recorded
-					lcd.print(currently_being_pressed);
 
+					if (locker0 == 50) {
+						state = 0;
+
+						//print out the key that was recorded
+						lcd.print(currently_being_pressed);
+
+						//add letter to the bottom line buffer
+						bottom_line[bottom_line_ctr] = currently_being_pressed;
+
+						bottom_line_ctr++;
+
+						//if bottom line has been filled, move to next line
+						if (bottom_line_ctr==16) {
+							bottom_line_ctr = 0;
+
+							//TODO: maybe clear the bottom line buffer?
+
+
+							next_line(lcd);
+						}
+
+						locker0 = 0;
+					}
 				}
-
+				break;
 		}
 	}
 }

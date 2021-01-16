@@ -11,17 +11,17 @@ int key_lookup(int* pins, int* analog_vals) {
 	int a0 = analog_vals[0];
 
 	if (a0 < 990) {
-		if (a0 > 944)
+		if (a0 > 939)
 			return 'c';
-		else if (a0 > 934)
+		else if (a0 > 933)
 			return '4';
-		else if (a0 > 927)
+		else if (a0 > 922)
 			return 'd';
-		else if (a0 > 915)
+		else if (a0 > 914)
 			return 'e';
 		else if (a0 > 900)
 			return 'x';
-		else if (a0 > 885)
+		else if (a0 > 883)
 			return '3';
 		else if (a0 > 870)
 			return 's';
