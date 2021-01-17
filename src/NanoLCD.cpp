@@ -48,9 +48,10 @@ int main (void) {
 	Serial.begin(9600);
 
 
+	//DBUG ANALOG READINGS
 /*
 	while(1) {
-		Serial.println(analogRead(b1));
+		Serial.println(analogRead(A1));
 		//Serial.println(digitalRead(buttonPin));
 	}*/
 

@@ -12,7 +12,7 @@
 
 
 void open_console(LiquidCrystal lcd);
-void start_key_processor(LiquidCrystal lcd);
+void key_processor(LiquidCrystal lcd);
 
 
 #endif /* INCLUDE_CONSOLE_H_ */

@@ -11,6 +11,7 @@ endif
 
 PROJECT_OBJS = \
 	project/src/NanoLCD.cpp.o \
+	project/src/circ_buffer.cpp.o \
 	project/src/console.cpp.o \
 	project/src/keys.cpp.o \
 	project/src/welcome.cpp.o \
@@ -84,6 +85,14 @@ project/src/NanoLCD.cpp.o: ../../src/NanoLCD.cpp project/src/NanoLCD.cpp.d
 project/src/NanoLCD.cpp.d: ;
 
 -include project/src/NanoLCD.cpp.d 
+
+project/src/circ_buffer.cpp.o: ../../src/circ_buffer.cpp project/src/circ_buffer.cpp.d
+	@$(call mymkdir,$(dir $@))
+	"/home/nodog/.arduinocdt/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++" -c -g -Os -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=10608 -DARDUINO_AVR_NANO -DARDUINO_ARCH_AVR   -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/cores/arduino" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/variants/eightanaloginputs" -I"/home/nodog/.arduinocdt/libraries/SD/1.2.4/src" -I"/home/nodog/.arduinocdt/libraries/DigitalIO/1.0.0/src" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/libraries/Wire/src" -I"/home/nodog/.arduinocdt/libraries/LiquidCrystal/1.0.7/src" -I"/home/nodog/.arduinocdt/packages/arduino/hardware/avr/1.8.3/libraries/SPI/src" "$<" -o "$@"
+
+project/src/circ_buffer.cpp.d: ;
+
+-include project/src/circ_buffer.cpp.d 
 
 project/src/console.cpp.o: ../../src/console.cpp project/src/console.cpp.d
 	@$(call mymkdir,$(dir $@))
