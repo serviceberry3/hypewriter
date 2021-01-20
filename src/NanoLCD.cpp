@@ -49,11 +49,11 @@ int main (void) {
 
 
 	//DBUG ANALOG READINGS
-/*
+
 	while(1) {
 		Serial.println(analogRead(A1));
 		//Serial.println(digitalRead(buttonPin));
-	}*/
+	}
 
 
 	//make sure SD module initializes successfully, otherwise print error and hang
