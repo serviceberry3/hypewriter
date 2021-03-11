@@ -2,7 +2,7 @@ This is a WIP. I'm taking an old Royal Safari typewriter and digitizing it by ad
 An end goal is to convert the entire thing into either a standard USB keyboard or a bluetooth keyboard.
 
 Here's what it looks like so far:  
-[Hypewriter demo](img/hypewriter_demo.gif)
+![Hypewriter demo](img/hypewriter_demo.gif)
 
 
 # ISSUES #
